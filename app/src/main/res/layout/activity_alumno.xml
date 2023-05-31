@@ -26,9 +26,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
-                app:title="Revisiones"
+                app:title="Alumno"
                 app:titleCentered="true"
-                app:titleTextColor="@color/white"/>
+                app:titleTextColor="@color/white"
+                app:navigationIcon="@drawable/outline_keyboard_backspace_24"
+                app:navigationIconTint="@color/white"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 

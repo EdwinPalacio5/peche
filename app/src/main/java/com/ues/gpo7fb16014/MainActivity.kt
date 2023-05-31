@@ -10,9 +10,9 @@ import com.ues.gpo7fb16014.db.ControlDB
 
 class MainActivity : AppCompatActivity() {
 
-    var menu = arrayOf("CRUD 1", "CRUD 2", "CRUD 3", "LLENADO DE DATOS")
-    var activities = arrayOf("", "", "")
-    var binding : ActivityMainBinding? = null;
+    var menu = arrayOf("Alumnos", "CRUD 2", "CRUD 3", "LLENADO DE DATOS")
+    var activities = arrayOf("AlumnoActivity", "", "")
+    var binding : ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 if (position != 3) {
                     val nombreValue = activities[position]
                     try {
-                        val clase = Class.forName("com.ues.gpo7fb16014.$nombreValue")
+                        val clase = Class.forName("com.ues.gpo7fb16014.crud.$nombreValue")
                         val inte = Intent(this, clase)
                         this.startActivity(inte)
                     } catch (e: ClassNotFoundException) {

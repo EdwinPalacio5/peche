@@ -30,7 +30,7 @@ class ControlDB(ctx: Context){
                 db.execSQL("CREATE TABLE motivos_cambio (cod_motivo TEXT PRIMARY KEY, nombre TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE materia (cod_materia TEXT PRIMARY KEY, nombre TEXT NOT NULL, area TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE ciclo (cod_ciclo TEXT PRIMARY KEY, anio TEXT NOT NULL);")
-                db.execSQL("CREATE TABLE docente (cod_docente TEXT PRIMARY KEY, nombre TEXT NOT NULL, area TEXT NOT NULL);")
+                db.execSQL("CREATE TABLE docente (cod_docente TEXT PRIMARY KEY, nombre TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE evaluacion (" +
                         "num INTEGER PRIMARY KEY, " +
                         "tipo TEXT NOT NULL, " +
