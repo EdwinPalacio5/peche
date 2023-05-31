@@ -1,9 +1,14 @@
 package com.ues.gpo7fb16014.db
 
+import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.database.sqlite.SQLiteStatement
+import android.util.Log
+import com.ues.gpo7fb16014.models.Alumno
 
 class ControlDB(ctx: Context){
     private var context: Context? = null
@@ -89,5 +94,80 @@ class ControlDB(ctx: Context){
         return "Guardo Correctamente"
     }
 
-//    private fun insertar(cliente: Cliente) {}
+     fun insertarAlumno(alumno: Alumno) : String {
+         var result : String = ""
+        abrir()
+        db?.let { db ->
+            val sql = "INSERT INTO alumno(carnet, nombre, carrera)" + " VALUES " + "(?,?,?)"
+
+            db.beginTransactionNonExclusive()
+            val stmt: SQLiteStatement = db.compileStatement(sql)
+            try {
+                stmt.bindString(1, alumno.carnet)
+                stmt.bindString(2, alumno.nombre)
+                stmt.bindString(3, alumno.carrera)
+                stmt.execute()
+                stmt.clearBindings()
+                result = "Alumno creado de forma exitosa"
+            } catch (e: Exception) {
+                result = "ERROR INSERT alumno $e"
+            }
+            db.setTransactionSuccessful()
+            db.endTransaction()
+        }
+        cerrar()
+        return result
+    }
+
+    fun getAllAlumnos() : ArrayList<Alumno>{
+        val alumnos: ArrayList<Alumno> = ArrayList()
+        val query = "SELECT carnet, nombre, carrera FROM alumno"
+        abrir()
+        db?.let { db ->
+            val cursor: Cursor = db.rawQuery(query, null)
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        val alumno = Alumno()
+                        alumno.carnet = cursor.getString(0)
+                        alumno.nombre = cursor.getString(1)
+                        alumno.carrera = cursor.getString(2)
+                        alumnos.add(alumno)
+                    } while (cursor.moveToNext())
+                }else{}
+            } catch (e: java.lang.Exception) {
+                Log.d(ContentValues.TAG, "Error while trying to get alumnos from database")
+            } finally {
+                if (!cursor.isClosed) {
+                    cursor.close()
+                }
+            }
+        }
+        cerrar()
+        return alumnos
+    }
+
+    fun editar(alumno: Alumno): String {
+        val id = arrayOf(alumno.carnet)
+        val cv = ContentValues()
+        cv.put("nombre", alumno.nombre)
+        cv.put("carrera", alumno.carrera)
+        abrir()
+        db?.let { db ->
+            db.update("alumno", cv, "carnet = ?", id)
+        }
+        cerrar()
+        return "Registro Actualizado Correctamente"
+    }
+
+    fun eliminar(alumno: Alumno): String? {
+        var contador = 0
+        val where = "carnet='${alumno.carnet}'"
+        abrir()
+        db?.let { db ->
+            contador += db.delete("alumno", where, null)
+        }
+        cerrar()
+        return "filas afectadas= $contador"
+    }
 }

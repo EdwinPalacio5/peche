@@ -34,18 +34,48 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_marginBottom="?actionBarSize">
 
-            <ListView
-                android:id="@+id/listMenu"
+        <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_marginBottom="?actionBarSize"
+                android:orientation="vertical"
+                android:padding="32dp">
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtCarnet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:hint="Carnet"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:hint="Nombre"/>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtCarrera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:hint="Carrera"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCrear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:text="Crear"/>
 
-        </RelativeLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLimpiar"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:text="Limpiar"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
