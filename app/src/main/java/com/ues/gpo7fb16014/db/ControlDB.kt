@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteStatement
 import android.util.Log
 import com.ues.gpo7fb16014.models.Alumno
+import com.ues.gpo7fb16014.models.Docente
+import com.ues.gpo7fb16014.models.Materia
 
 class ControlDB(ctx: Context){
     private var context: Context? = null
@@ -30,9 +32,11 @@ class ControlDB(ctx: Context){
 
         override fun onCreate(db: SQLiteDatabase) {
             try {
+                db.execSQL("CREATE TABLE parametros (nombre TEXT PRIMARY KEY, valor TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE alumno (carnet TEXT PRIMARY KEY, nombre TEXT NOT NULL, carrera TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE local (cod_local TEXT NOT NULL PRIMARY KEY);")
                 db.execSQL("CREATE TABLE motivos_cambio (cod_motivo TEXT PRIMARY KEY, nombre TEXT NOT NULL);")
+                db.execSQL("CREATE TABLE motivos_rechazo (cod_motivo_rechazo TEXT PRIMARY KEY, descripcion TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE materia (cod_materia TEXT PRIMARY KEY, nombre TEXT NOT NULL, area TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE ciclo (cod_ciclo TEXT PRIMARY KEY, anio TEXT NOT NULL);")
                 db.execSQL("CREATE TABLE docente (cod_docente TEXT PRIMARY KEY, nombre TEXT NOT NULL);")
@@ -55,6 +59,34 @@ class ControlDB(ctx: Context){
                         "nota_original REAL NOT NULL, " +
                         "observ TEXT NOT NULL, " +
                         "asistencia TINYINT NOT NULL);")
+                db.execSQL("CREATE TABLE pruebas_diferidas (cod_prueba_dif TEXT PRIMARY KEY, " +
+                        "cod_docente TEXT NOT NULL," +
+                        "carnet TEXT NOT NULL," +
+                        "fecha TEXT NOT NULL, " +
+                        "hora TEXT NOT NULL, " +
+                        "cod_local TEXT NOT NULL, " +
+                        "num_evaluacion TEXT NOT NULL, " +
+                        "aprobado tinyint );")
+
+                db.execSQL("CREATE TABLE pruebas_diferidas (cod_prueba_dif TEXT PRIMARY KEY, " +
+                        "cod_docente TEXT NOT NULL," +
+                        "carnet TEXT NOT NULL," +
+                        "fecha TEXT NOT NULL, " +
+                        "hora TEXT NOT NULL, " +
+                        "cod_local TEXT NOT NULL, " +
+                        "num_evaluacion TEXT NOT NULL, " +
+                        "aprobado tinyint );")
+
+                db.execSQL("CREATE TABLE solicitud_impresiones (cod_solicitud TEXT PRIMARY KEY, " +
+                        "cod_docente TEXT NOT NULL," +
+                        "carnet TEXT NOT NULL," +
+                        "cant_examenes INTEGER NOT NULL, " +
+                        "hojas_anexas TINYINT , " +
+                        "aprobado TINYINT, " +
+                        "realizado TINYINT , " +
+                        "cod_motivo_rechazo varchar );")
+
+
             } catch (e: SQLException) {
                 e.printStackTrace()
             }
@@ -119,6 +151,55 @@ class ControlDB(ctx: Context){
         return result
     }
 
+    fun insertarMateria(materia: Materia) : String {
+        var result : String = ""
+        abrir()
+        db?.let { db ->
+            val sql = "INSERT INTO materia(cod_materia, nombre, area)" + " VALUES " + "(?,?,?)"
+
+            db.beginTransactionNonExclusive()
+            val stmt: SQLiteStatement = db.compileStatement(sql)
+            try {
+                stmt.bindString(1, materia.cod_materia)
+                stmt.bindString(2, materia.nombre)
+                stmt.bindString(3, materia.area)
+                stmt.execute()
+                stmt.clearBindings()
+                result = "Materia creado de forma exitosa"
+            } catch (e: Exception) {
+                result = "ERROR INSERT materia $e"
+            }
+            db.setTransactionSuccessful()
+            db.endTransaction()
+        }
+        cerrar()
+        return result
+    }
+
+    fun insertarDocente(docente: Docente) : String {
+        var result : String = ""
+        abrir()
+        db?.let { db ->
+            val sql = "INSERT INTO docente(cod_docente, nombre)" + " VALUES " + "(?,?)"
+
+            db.beginTransactionNonExclusive()
+            val stmt: SQLiteStatement = db.compileStatement(sql)
+            try {
+                stmt.bindString(1, docente.cod_docente)
+                stmt.bindString(2, docente.nombre)
+                stmt.execute()
+                stmt.clearBindings()
+                result = "Docente creado de forma exitosa"
+            } catch (e: Exception) {
+                result = "ERROR INSERT docente $e"
+            }
+            db.setTransactionSuccessful()
+            db.endTransaction()
+        }
+        cerrar()
+        return result
+    }
+
     fun getAllAlumnos() : ArrayList<Alumno>{
         val alumnos: ArrayList<Alumno> = ArrayList()
         val query = "SELECT carnet, nombre, carrera FROM alumno"
@@ -147,6 +228,61 @@ class ControlDB(ctx: Context){
         return alumnos
     }
 
+    fun getAllMaterias() : ArrayList<Materia>{
+        val materias: ArrayList<Materia> = ArrayList()
+        val query = "SELECT cod_materia, nombre, area FROM materia"
+        abrir()
+        db?.let { db ->
+            val cursor: Cursor = db.rawQuery(query, null)
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        val materia = Materia()
+                        materia.cod_materia = cursor.getString(0)
+                        materia.nombre = cursor.getString(1)
+                        materia.area = cursor.getString(2)
+                        materias.add(materia)
+                    } while (cursor.moveToNext())
+                }else{}
+            } catch (e: java.lang.Exception) {
+                Log.d(ContentValues.TAG, "Error while trying to get alumnos from database")
+            } finally {
+                if (!cursor.isClosed) {
+                    cursor.close()
+                }
+            }
+        }
+        cerrar()
+        return materias
+    }
+
+    fun getAllDocentes() : ArrayList<Docente>{
+        val docentes: ArrayList<Docente> = ArrayList()
+        val query = "SELECT cod_docente, nombre FROM docente"
+        abrir()
+        db?.let { db ->
+            val cursor: Cursor = db.rawQuery(query, null)
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        val docente = Docente()
+                        docente.cod_docente = cursor.getString(0)
+                        docente.nombre = cursor.getString(1)
+                        docentes.add(docente)
+                    } while (cursor.moveToNext())
+                }else{}
+            } catch (e: java.lang.Exception) {
+                Log.d(ContentValues.TAG, "Error while trying to get alumnos from database")
+            } finally {
+                if (!cursor.isClosed) {
+                    cursor.close()
+                }
+            }
+        }
+        cerrar()
+        return docentes
+    }
+
     fun editar(alumno: Alumno): String {
         val id = arrayOf(alumno.carnet)
         val cv = ContentValues()
@@ -160,12 +296,58 @@ class ControlDB(ctx: Context){
         return "Registro Actualizado Correctamente"
     }
 
+    fun editarMateria(materia: Materia): String {
+        val id = arrayOf(materia.cod_materia)
+        val cv = ContentValues()
+        cv.put("nombre", materia.nombre)
+        cv.put("area", materia.area)
+        abrir()
+        db?.let { db ->
+            db.update("materia", cv, "cod_materia = ?", id)
+        }
+        cerrar()
+        return "Registro Actualizado Correctamente"
+    }
+    fun editarDocente(docente: Docente): String {
+        val id = arrayOf(docente.cod_docente)
+        val cv = ContentValues()
+        cv.put("nombre", docente.nombre)
+        abrir()
+        db?.let { db ->
+            db.update("docente", cv, "cod_docente = ?", id)
+        }
+        cerrar()
+        return "Registro Actualizado Correctamente"
+    }
+
     fun eliminar(alumno: Alumno): String? {
         var contador = 0
         val where = "carnet='${alumno.carnet}'"
         abrir()
         db?.let { db ->
             contador += db.delete("alumno", where, null)
+        }
+        cerrar()
+        return "filas afectadas= $contador"
+    }
+
+    fun eliminarMateria(materia: Materia): String? {
+        var contador = 0
+        val where = "cod_materia='${materia.cod_materia}'"
+        abrir()
+        db?.let { db ->
+            contador += db.delete("materia", where, null)
+        }
+        cerrar()
+        return "filas afectadas= $contador"
+    }
+
+    fun eliminarDocente(docente: Docente): String? {
+        var contador = 0
+        val where = "cod_docente='${docente.cod_docente}'"
+        abrir()
+        db?.let { db ->
+            contador += db.delete("docente", where, null)
         }
         cerrar()
         return "filas afectadas= $contador"
