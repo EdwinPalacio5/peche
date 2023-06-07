@@ -11,8 +11,8 @@ import com.ues.gpo7fb16014.db.ControlDB
 
 class AlumnoActivity : AppCompatActivity() {
 
-    var menu = arrayOf("Crear Alumno", "Listar Alumnos", "Editar Alumno", "Eliminar Alumno")
-    var activities = arrayOf("CrearAlumnoActivity", "ListarAlumnoActivity", "EditarAlumnoActivity", "EliminarAlumnoActivity")
+    var menu = arrayOf("Crear Alumno", "Listar Alumnos")//"Editar Alumno", "Eliminar Alumno"
+    var activities = arrayOf("CrearAlumnoActivity", "ListarAlumnoActivity")//"EditarAlumnoActivity", "EliminarAlumnoActivity"
     var binding : ActivityAlumnoBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

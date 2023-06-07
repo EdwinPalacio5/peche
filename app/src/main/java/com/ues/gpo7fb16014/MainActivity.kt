@@ -10,7 +10,7 @@ import com.ues.gpo7fb16014.db.ControlDB
 
 class MainActivity : AppCompatActivity() {
 
-    var menu = arrayOf("Alumnos", "Materias", "Docentes", "Agregar Evidencias", "LLENADO DE DATOS")
+    var menu = arrayOf("Alumnos", "Materias", "Docentes", "Agregar Evidencias")//"LLENADO DE DATOS"
     var activities = arrayOf("AlumnoActivity", "MateriaActivity", "DocenteActivity", "CamaraActivity")
     var binding : ActivityMainBinding? = null
 

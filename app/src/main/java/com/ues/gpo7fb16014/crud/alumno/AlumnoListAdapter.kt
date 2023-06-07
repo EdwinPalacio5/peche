@@ -37,7 +37,7 @@ class AlumnoListAdapter(
             }
 
             btnEliminar.setOnClickListener {
-                startActivityEditar(item)
+                startActivityEliminar(item)
             }
         }
 

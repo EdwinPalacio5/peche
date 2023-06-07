@@ -3,7 +3,6 @@ package com.ues.gpo7fb16014.crud.alumno
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.DefaultRetryPolicy
@@ -40,8 +39,6 @@ class EditarAlumnoActivity : AppCompatActivity() {
             alumno.nombre = bundle.getString("nombre", "")
             alumno.carrera = bundle.getString("carrera", "")
 
-            // Hacer uso de los parámetros recibidos
-            // ...
         }
 
         binding?.let { binding ->
