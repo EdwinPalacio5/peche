@@ -11,6 +11,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.ues.gpo7fb16014.Constants
 import com.ues.gpo7fb16014.R
 import com.ues.gpo7fb16014.databinding.ActivityEditarBinding
 import com.ues.gpo7fb16014.db.ControlDB
@@ -23,7 +24,7 @@ class EditarAlumnoActivity : AppCompatActivity() {
     var alumno : Alumno = Alumno()
 
     private lateinit var requestQueue: RequestQueue
-    private val url = "http://192.168.1.13:8000/api/alumnos"
+    private val url = "${Constants.url}/api/alumnos"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

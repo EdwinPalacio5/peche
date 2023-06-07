@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.ues.gpo7fb16014.Constants
 import com.ues.gpo7fb16014.R
 import com.ues.gpo7fb16014.databinding.ActivityEliminarBinding
 import com.ues.gpo7fb16014.db.ControlDB
@@ -24,7 +25,7 @@ class EliminarAlumnoActivity : AppCompatActivity() {
     lateinit var controlDB : ControlDB
 
     private lateinit var requestQueue: RequestQueue
-    private val url = "http://192.168.1.13:8000/api/alumnos"
+    private val url = "${Constants.url}/api/alumnos"
 
     val alumno : Alumno = Alumno()
 

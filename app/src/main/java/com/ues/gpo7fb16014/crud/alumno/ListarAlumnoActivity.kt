@@ -10,6 +10,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.GsonBuilder
+import com.ues.gpo7fb16014.Constants
 import com.ues.gpo7fb16014.databinding.ActivityListarAlumnoBinding
 import com.ues.gpo7fb16014.db.ControlDB
 import com.ues.gpo7fb16014.models.Alumno
@@ -24,7 +25,7 @@ class ListarAlumnoActivity : AppCompatActivity() {
     lateinit  var adapter : AlumnoListAdapter
 
     private lateinit var requestQueue: RequestQueue
-    private val url = "http://192.168.1.13:8000/api/alumnos"
+    private val url = "${Constants.url}/api/alumnos"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
