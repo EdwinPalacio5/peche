@@ -10,8 +10,8 @@ import com.ues.gpo7fb16014.db.ControlDB
 
 class MainActivity : AppCompatActivity() {
 
-    var menu = arrayOf("Alumnos", "Materias", "Docentes", "LLENADO DE DATOS")
-    var activities = arrayOf("AlumnoActivity", "MateriaActivity", "DocenteActivity")
+    var menu = arrayOf("Alumnos", "Materias", "Docentes", "Agregar Evidencias", "LLENADO DE DATOS")
+    var activities = arrayOf("AlumnoActivity", "MateriaActivity", "DocenteActivity", "CamaraActivity")
     var binding : ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, menu)
         binding?.let { binding ->
             binding.listMenu.adapter = arrayAdapter
-            binding.listMenu.setOnItemClickListener { adapterView, view, position, l ->
-                if (position != 3) {
+            binding.listMenu.setOnItemClickListener { _, _, position, _ ->
+                if (position < 4) {
                     val nombreValue = activities[position]
                     try {
                         val clase = Class.forName("com.ues.gpo7fb16014.crud.$nombreValue")
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                     } catch (e: ClassNotFoundException) {
                         e.printStackTrace()
                     }
-                } else {
+                }else{
                     val result = controlDB.llenarBD()
                     Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
                 }
