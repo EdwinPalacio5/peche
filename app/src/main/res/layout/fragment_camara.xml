@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/black">
+
+    <RelativeLayout
+        android:id="@+id/layoutNewPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/layoutOptionsNewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp">
+
+            <ImageView
+                android:id="@+id/closeNewPic"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentStart="true"
+                android:padding="4dp"
+                android:src="@drawable/outline_keyboard_backspace_24"
+                app:tint="@color/white" />
+        </RelativeLayout>
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layoutOptionsNewPhoto"
+            android:layout_margin="5dp"
+            android:layout_above="@id/buttons"/>
+
+        <ImageView
+            android:id="@+id/picPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_above="@id/buttons"
+            android:scaleType="fitCenter"
+            />
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:weightSum="5"
+            android:gravity="center"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="48dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/savePic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                app:icon="@drawable/outline_check_24"
+                app:iconSize="24dp"
+                app:iconGravity="textStart"
+                app:backgroundTint="@color/white"
+                android:padding="0dp"
+                app:iconPadding="0dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/takePicture"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="32dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                app:iconSize="42dp"
+                app:iconGravity="textStart"
+                app:backgroundTint="@color/black"
+                android:padding="4dp"
+                app:iconPadding="0dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:strokeColor="@color/white"
+                app:strokeWidth="3dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearPic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                app:icon="@drawable/outline_replay_24"
+                app:iconSize="24dp"
+                app:iconGravity="textStart"
+                app:backgroundTint="@color/white"
+                android:padding="0dp"
+                app:iconPadding="0dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progressBar_cyclic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progressBar_cyclic"
+            android:layout_centerHorizontal="true"
+            android:text="Loading"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>
