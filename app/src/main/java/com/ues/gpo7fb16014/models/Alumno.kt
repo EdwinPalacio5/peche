@@ -11,4 +11,8 @@ data class Alumno (
     var nombre : String = "",
     @SerializedName("carrera")
     var carrera : String = "",
-)
+){
+    override fun toString(): String {
+        return nombre
+    }
+}

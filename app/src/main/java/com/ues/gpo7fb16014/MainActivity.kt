@@ -11,7 +11,7 @@ import com.ues.gpo7fb16014.db.ControlDB
 class MainActivity : AppCompatActivity() {
 
     var menu = arrayOf("Alumnos", "Materias", "Docentes", "Agregar Evidencias")//"LLENADO DE DATOS"
-    var activities = arrayOf("AlumnoActivity", "MateriaActivity", "DocenteActivity", "CamaraActivity")
+    var activities = arrayOf("AlumnoActivity", "MateriaActivity", "DocenteActivity", "RevisionActivity")
     var binding : ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

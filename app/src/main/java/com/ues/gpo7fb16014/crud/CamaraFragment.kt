@@ -158,8 +158,6 @@ class CamaraFragment : Fragment() {
         ft.remove(this)
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
         ft.commit()
-
-        requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
     private fun clearPhoto() {

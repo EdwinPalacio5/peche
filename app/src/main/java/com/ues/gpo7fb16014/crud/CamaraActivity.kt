@@ -13,22 +13,9 @@ class CamaraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCamaraBinding.inflate(layoutInflater, null, false)
 
-        takePhoto()
+
         setContentView(binding!!.root)
     }
 
-    private fun takePhoto() {
-        val fm: FragmentManager = supportFragmentManager
-        val ft = fm.beginTransaction()
-        val takePhotoFragment = CamaraFragment()
-        binding?.fragmentContainer?.let { ft.add(it.id, takePhotoFragment, "TAKE_PHOT0") }
-        ft.setReorderingAllowed(true)
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        ft.commit()
-        fm.setFragmentResultListener("take_photo", this) { requestKey: String?, bundle: Bundle? ->
-            bundle?.let {
-                println(it.getString("filename"))
-            }
-        }
-    }
+
 }
